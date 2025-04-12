@@ -42,9 +42,9 @@ const login = async(email: string, password: string)=>{
     toast.error(err.code.split('/')[1].split('-').join(" "));  //for notification
   }
 }
-const logout = ()=>{
+const logout = async()=>{
   try{
-    signOut(auth);
+    await signOut(auth);
   }catch(error){
       console.log(error);
   }

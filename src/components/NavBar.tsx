@@ -5,7 +5,7 @@ import profile_icon from "../assets/profile_img.png"
 import dropDown_icon from "../assets/caret_icon.svg"
 import { useEffect, useRef, useState} from "react"
 import { logout } from "../firebase"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { FiMenu, FiX } from "react-icons/fi"
 
 
@@ -13,7 +13,12 @@ import { FiMenu, FiX } from "react-icons/fi"
 const NavBar = () => {
   const navRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
-  
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login"); // Or the route you use for login
+  };
+
   useEffect(() => {
     window.addEventListener("scroll", ()=>{
       if (window.scrollY >= 80) {
@@ -47,7 +52,7 @@ const NavBar = () => {
           <img src={profile_icon} alt="" className="  cursor-pointer" />
           <img src={dropDown_icon} alt="" className="w-3 cursor-pointer "/>
           <div className="absolute right-0  top-8 p-3 w-max hidden group-hover:block hover:block">
-            <p onClick={()=>{logout()}} className="hover:underline cursor-pointer text-[13px]">Sign Out Of Netflix</p>
+            <p onClick={handleLogout} className="hover:underline cursor-pointer text-[13px]">Sign Out Of Netflix</p>
           </div>
         </div>
           
