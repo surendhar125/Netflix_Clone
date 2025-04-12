@@ -25,7 +25,7 @@ const Login = () => {
   }
 
   return (
-    loading? <div className="w-full h-full flex items-center justify-center"> <img src={netflix_spinner}  width="60px" alt="loading" /></div>  : 
+    loading? <div className="w-full h-screen flex items-center justify-center"> <img src={netflix_spinner}  width="60px" alt="loading" /></div>  : 
     <div className="h-screen bg-cover bg-center px-5 py-2 flex flex-col"
       style={{backgroundImage: "linear-gradient(#0000007e, #0000007e), url('/background_banner.jpg')"}}>
       
