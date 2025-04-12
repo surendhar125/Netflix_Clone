@@ -1,0 +1,10 @@
+@import "tailwindcss"; 
+.dropdown{
+  display: none;
+}
+.profile:hover .dropdown{
+  display: block;
+}
+::-webkit-scrollbar {
+  display: none;
+}
