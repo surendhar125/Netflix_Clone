@@ -65,9 +65,9 @@ const NavBar = () => {
           {/* Login/Logout Toggle */}
           {currentUser ? (
             <div className="flex flex-row gap-1 relative group">
-              <img src={profile_icon} alt="Profile"
+              <img src={profile_icon} onClick={handleLogout} alt="Profile"
                 className="cursor-pointer"/>
-              <img src={dropDown_icon} alt="Dropdown"
+              <img src={dropDown_icon} onClick={handleLogout} alt="Dropdown"
                 className="w-3 cursor-pointer"/>
               <div className="absolute right-0 top-8 p-3 w-max hidden group-hover:block hover:block">
                 <p onClick={handleLogout} className="hover:underline cursor-pointer text-[13px]">
