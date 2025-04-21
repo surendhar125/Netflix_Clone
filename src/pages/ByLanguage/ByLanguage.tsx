@@ -53,7 +53,7 @@ const TvShows = () => {
         </div>)
       : (<div>
           <MoviesList lang={selectedLang} title={`Popular in ${languageOptions.find(l => l.code === selectedLang)?.label}`} no={1} page={page} />
-          <TvShowsList lang={selectedLang} title={`Popular in ${languageOptions.find(l => l.code === selectedLang)?.label}`} page={page} />
+          <TvShowsList lang={selectedLang} title={`Popular TV Shows in ${languageOptions.find(l => l.code === selectedLang)?.label}`} page={page} />
         </div>)}
 
 

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { fetchTvShows, fetchTvShowsByLanguage, fetchTvShowsChildren } from '../services/tmdbService';
 import { FaPlay } from 'react-icons/fa';
 import { MdInfoOutline } from 'react-icons/md';
+import netflix_spinner from '../assets/netflix_spinner.gif';
 
 interface TVShow {
   id: number;
@@ -28,6 +29,7 @@ interface Props {
 const TvShowsList = ({ title, category, no, lang, children, page}: Props) => {
   const [apiData, setApiData] = useState<TVShow[]>([]);
   const [bannerShow, setBannerShow] = useState<TVShow | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const scrollAmount = 300;
@@ -37,6 +39,7 @@ const TvShowsList = ({ title, category, no, lang, children, page}: Props) => {
     
     try {
       let data;
+      setLoading(true);
       if (lang) {
         data = await fetchTvShowsByLanguage(lang, page? page: 1);
       } else if (category) {
@@ -47,11 +50,13 @@ const TvShowsList = ({ title, category, no, lang, children, page}: Props) => {
         console.warn("No category or language provided to TitleCard.");
         return;
       }
-
+      setLoading(false);
       setApiData(data.results);
       setBannerShow(data.results[5]);
     } catch (error) {
       console.error('Error fetching TV shows:', error);
+    } finally{
+      setLoading(false);
     }
   };
   
@@ -83,6 +88,9 @@ const TvShowsList = ({ title, category, no, lang, children, page}: Props) => {
 
   return (
     <>
+     {loading?(<div className='flex items-center justify-center'><img src={netflix_spinner}  width="60px" alt="loading" /></div>
+    ):(
+      <>
       {/* Banner */}
       {no===1 &&bannerShow && (
         <div
@@ -147,8 +155,7 @@ const TvShowsList = ({ title, category, no, lang, children, page}: Props) => {
                 key={index}
                 className="bg-[#141414] rounded-sm overflow-hidden shadow-md transition-transform duration-300 hover:scale-105 cursor-pointer w-[150px] md:w-[240px] relative"
               >
-                <img
-                  src={`https://image.tmdb.org/t/p/w500/${card.backdrop_path}`}
+                <img src={`https://image.tmdb.org/t/p/w500/${card.backdrop_path}`}
                   alt={card.name}
                   className="w-full object-cover object-center"
                 />
@@ -160,6 +167,8 @@ const TvShowsList = ({ title, category, no, lang, children, page}: Props) => {
           </div>
         </div>
       </div>
+    </>
+    )}
     </>
   );
 };
